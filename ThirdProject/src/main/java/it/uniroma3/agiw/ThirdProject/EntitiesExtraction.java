@@ -13,7 +13,7 @@ public class EntitiesExtraction {
 	
 	 public Entities doExtraction(String url) {
 		    AlchemyLanguage service = new AlchemyLanguage();
-		    service.setApiKey("19bfe996b1c656213627f4a66cdf3cd7d604c8f9");
+		    service.setApiKey("***");
 
 		    Map<String, Object> params = new HashMap<String, Object>();
 		    params.put(AlchemyLanguage.URL,url);
