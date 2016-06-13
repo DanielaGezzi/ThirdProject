@@ -1,5 +1,6 @@
 package it.uniroma3.agiw.ThirdProject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -10,7 +11,9 @@ public class RegexExtraction {
 	private String email_regex = "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}";
 			//"[^\\s@<>]+@[^\\s<>]+\\.[^\\s@<>]+" vecchia regex
 	private String telephone_regex = "[^0-9]((\\+39)|(0[1-9]))([0-9().\\- ]{5,9})|(\\+39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[{8,9}]))([\\d]{7})";
-
+	private String name_regex = "";
+	
+	
 	public RegexExtraction(){}
 	
 	public List<String> doEmailExtraction(String html){
@@ -31,15 +34,40 @@ public class RegexExtraction {
 	public List<String> doTelephoneExtraction(String html){
 		List<String> output = new ArrayList<String>();
 
-		Pattern pattern = Pattern.compile(telephone_regex, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
-		Matcher m = pattern.matcher(html);
-		
-		while(m.find()){
-			output.add(m.group());
-		}
+		execute(telephone_regex,html,output);
 		
 		return output;
 		
 	}
+	
+	public List<String> doNamesExtraction(String html) throws IOException{
+		List<String> output = new ArrayList<String>();
+		NameSurname ns = new NameSurname();
+		List<String> names = ns.getNames();
+		for(String n: names){
+				//I casi sono: Nome Cognome, NOME Cognome, Nome COGNOME, NOME COGNOME e nome cognome
+				name_regex = n+"\\s([A-Z]\\w+)*|"+n.toUpperCase()+"\\s([A-Z]\\w+)*|"
+						   + n+"\\s([A-Z]\\[A-Z]+)*|"+n.toUpperCase()+"\\s([A-Z]\\[A-Z]+)*|"
+						   + n.toLowerCase()+"\\s([a-z]\\[a-z]+)*";	
+				execute(name_regex,html,output);
+				//I casi sono: Cognome Nome, COGNOME Nome,Cognome NOME, COGNOME NOME e cognome nome
+				name_regex = "([A-Z]\\w+)*"+n+"|([A-Z]\\[A-Z]+)*"+n
+						   + "|([A-Z]\\w+)*"+n.toUpperCase()+"|([A-Z]\\[A-Z]+)*"+n.toUpperCase()+"|"
+						   + "([a-z]\\[a-z]+)*"+n;	
+				execute(name_regex,html,output);
+		}	
+		return output;		
+	}
+	
+	public void execute(String regex,String html,List<String>output){
+		Pattern pattern = Pattern.compile(name_regex, Pattern.MULTILINE);
+		Matcher m = pattern.matcher(html);
+		
+		while(m.find()){
+			output.add(m.group());
+		}		
+
+	}
+	
 	
 }
