@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,11 +24,13 @@ public class App {
     @SuppressWarnings("unchecked")
 	public static void main( String[] args ) throws IOException, ParserConfigurationException {
     	
-		BufferedWriter log_error;
+		BufferedWriter log_error; //log file degli errori
+		
     	@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(new FileReader(listaIngegneriUrl_path));
     	String current_line;
     	int progressive_num = 0;
+    	
     	while((current_line = br.readLine()) != null){
     		
     		String[] a = current_line.split("\t");  //a[0]= nominativo ----  a[2]=url
@@ -49,25 +52,41 @@ public class App {
 	        personResultJson.put("url", url);
 	        
 	        JSONObject nerJson = new JSONObject();
+	        List<String> type_visti = new ArrayList<String>();
 	        
-	    	JSONArray perValueArray = new JSONArray();
+	      /*JSONArray perValueArray = new JSONArray();
 	    	JSONArray orgValueArray = new JSONArray();
-	    	JSONArray locValueArray = new JSONArray();
+	    	JSONArray locValueArray = new JSONArray();*/
 	
-	        for(Object ent : entitiesObj){
-	        	JSONObject entityObj = (JSONObject) ent;
+	        for(Object ent1 : entitiesObj){
+	        	JSONObject entityObj1 = (JSONObject) ent1;
+    			JSONArray nerValueArray = new JSONArray();
+	        	String type = (String) entityObj1.get("type");
 	        	
-		            	if(entityObj.get("type").equals("Person"))
+	        	if(!type_visti.contains(type)){
+	        		for(Object ent2 : entitiesObj){
+	        			JSONObject entityObj2 = (JSONObject) ent2;
+	        			if(entityObj2.get("type").equals(type)){
+	        				nerValueArray.add(entityObj2.get("text"));
+	        			}
+	        		}
+		        	nerJson.put(type, nerValueArray);
+		        	type_visti.add(type);
+
+	        	}
+	        	
+	        	
+		              /*if(entityObj.get("type").equals("Person"))
 		        			perValueArray.add(entityObj.get("text"));
 		            	else if(entityObj.get("type").equals("Organization"))
 		        			orgValueArray.add(entityObj.get("text"));
 		            	else if(entityObj.get("type").equals("City")||entityObj.get("type").equals("Country"))
-		        			locValueArray.add(entityObj.get("text"));
+		        			locValueArray.add(entityObj.get("text"));*/
 	
 	    	}
-	        nerJson.put("PER",perValueArray);
+	        /*nerJson.put("PER",perValueArray);
 	    	nerJson.put("ORG",orgValueArray);
-	    	nerJson.put("LOC",locValueArray);
+	    	nerJson.put("LOC",locValueArray);*/
 	        
 	        personResultJson.put("NER", nerJson);
 	        System.out.println(personResultJson);
@@ -82,7 +101,9 @@ public class App {
 			String html	= doc.html();
 			
 			List<String> email_output = re.doEmailExtraction(html);
-			JSONArray emailValueArray = new JSONArray();	        
+			List<String> telephone_output = re.doTelephoneExtraction(html);
+			JSONArray emailValueArray = new JSONArray();
+			JSONArray telephoneValueArray = new JSONArray();
 			
 			for(int i = 0; i<email_output.size(); i++){
 				
@@ -90,7 +111,14 @@ public class App {
 			
 			}
 			
+			for(int i = 0; i<telephone_output.size(); i++){
+				
+				telephoneValueArray.add(telephone_output.get(i).toString());
+			
+			}
+			
 	        regJson.put("email", emailValueArray);
+	        regJson.put("telephone", telephoneValueArray);
 	        
 	        personResultJson.put("PATTERN", regJson);
 
