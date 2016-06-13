@@ -7,8 +7,9 @@ import java.util.regex.Pattern;
 
 public class RegexExtraction {
 	
-	private String email_regex = "[^\\s@<>]+@[^\\s<>]+\\.[^\\s@<>]+";
-	private String telephone_regex = "[+(]?([0-9]{2,})[-.) ]?([ .-]?)([0-9]{2,})\\2([0-9]{3,})";
+	private String email_regex = "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}";
+			//"[^\\s@<>]+@[^\\s<>]+\\.[^\\s@<>]+" vecchia regex
+	private String telephone_regex = "[+(]?([0-9]{2,4})[-.) ]?([ .-]?)([0-9]{2,3})\\2([0-9]{3,4})";
 
 	public RegexExtraction(){}
 	
@@ -19,6 +20,7 @@ public class RegexExtraction {
 		Matcher m = pattern.matcher(html);
 		
 		while(m.find()){
+			System.out.println(m.group());
 			output.add(m.group());
 		}
 		
