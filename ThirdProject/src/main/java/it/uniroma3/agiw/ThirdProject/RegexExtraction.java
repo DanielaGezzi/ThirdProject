@@ -23,7 +23,8 @@ public class RegexExtraction {
 		Matcher m = pattern.matcher(html);
 		
 		while(m.find()){
-			System.out.println(m.group());
+			//System.out.println(m.group());
+			if(!output.contains(m.group()))
 			output.add(m.group());
 		}
 		
@@ -34,7 +35,13 @@ public class RegexExtraction {
 	public List<String> doTelephoneExtraction(String html){
 		List<String> output = new ArrayList<String>();
 
-		execute(telephone_regex,html,output);
+		Pattern pattern = Pattern.compile(telephone_regex, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+		Matcher m = pattern.matcher(html);
+		
+		while(m.find()){
+			if(!output.contains(m.group()))
+			output.add(m.group());
+		}
 		
 		return output;
 		
@@ -51,10 +58,10 @@ public class RegexExtraction {
 						   + n.toLowerCase()+"\\s([a-z]\\[a-z]+)*";	
 				execute(name_regex,html,output);
 				//I casi sono: Cognome Nome, COGNOME Nome,Cognome NOME, COGNOME NOME e cognome nome
-				name_regex = "([A-Z]\\w+)*"+n+"|([A-Z]\\[A-Z]+)*"+n
-						   + "|([A-Z]\\w+)*"+n.toUpperCase()+"|([A-Z]\\[A-Z]+)*"+n.toUpperCase()+"|"
-						   + "([a-z]\\[a-z]+)*"+n;	
-				execute(name_regex,html,output);
+				//name_regex = "([A-Z]\\w+)*"+n+"|([A-Z]\\[A-Z]+)*"+n
+				//		   + "|([A-Z]\\w+)*"+n.toUpperCase()+"|([A-Z]\\[A-Z]+)*"+n.toUpperCase()+"|"
+				//		   + "([a-z]\\[a-z]+)*"+n;	
+				//execute(name_regex,html,output);
 		}	
 		return output;		
 	}
@@ -64,6 +71,7 @@ public class RegexExtraction {
 		Matcher m = pattern.matcher(html);
 		
 		while(m.find()){
+			if(!output.contains(m.group()))
 			output.add(m.group());
 		}		
 

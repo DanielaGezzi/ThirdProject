@@ -103,8 +103,10 @@ public class App {
 			
 			List<String> email_output = re.doEmailExtraction(html);
 			List<String> telephone_output = re.doTelephoneExtraction(html);
+			List<String> names_output = re.doNamesExtraction(html);
 			JSONArray emailValueArray = new JSONArray();
 			JSONArray telephoneValueArray = new JSONArray();
+			JSONArray namesValueArray = new JSONArray();
 			
 			for(int i = 0; i<email_output.size(); i++){
 				
@@ -118,8 +120,15 @@ public class App {
 			
 			}
 			
+			for(int i = 0; i<names_output.size(); i++){
+				
+				namesValueArray.add(names_output.get(i).toString());
+			
+			}
+			
 	        regJson.put("email", emailValueArray);
 	        regJson.put("telephone", telephoneValueArray);
+	        regJson.put("name", namesValueArray);
 	        
 	        personResultJson.put("PATTERN", regJson);
 
