@@ -34,7 +34,8 @@ public class App {
     	while((current_line = br.readLine()) != null){
     		
     		String[] a = current_line.split("\t");  //a[0]= nominativo ----  a[2]=url
-    		String directory_path = cartellaDestinazione_path + "\\" + a[0].replace(" ","_");
+    		String[] name_surname = a[0].split(" ");
+    		String directory_path = cartellaDestinazione_path + "\\" + name_surname[1] + "_" + name_surname[0];
     		String url = a[2];
     		
     		try{
