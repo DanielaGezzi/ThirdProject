@@ -1,5 +1,7 @@
 package it.uniroma3.agiw.ThirdProject;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,18 +53,18 @@ public class RegexExtraction {
 		List<String> output = new ArrayList<String>();
 		NameSurname ns = new NameSurname();
 		List<String> names = ns.getNames();
-		for(String n: names){
+		BufferedReader br = new BufferedReader(new FileReader("../ThirdProject/src/main/resources/italian_name_regex.txt"));
+    	String nomi = br.readLine();
+    	
 				//I casi sono: Nome Cognome, NOME Cognome, Nome COGNOME, NOME COGNOME e nome cognome
-				name_regex = n+"\\s([A-Z]\\w+)*|"+n.toUpperCase()+"\\s([A-Z]\\w+)*|"
-						   + n+"\\s([A-Z]\\[A-Z]+)*|"+n.toUpperCase()+"\\s([A-Z]\\[A-Z]+)*|"
-						   + n.toLowerCase()+"\\s([a-z]\\[a-z]+)*";	
+				name_regex =  nomi+" ([A-Z][a-z']+ )*([A-Z][a-z']+)|"+nomi.toUpperCase()+" ([A-Z][a-z']+ )*([A-Z][a-z']+)|"
+							  + nomi+" ([A-Z][a-z']+ )*([A-Z][a-z']+)|"+nomi.toUpperCase()+" ([A-Z][a-z']+ )*([A-Z][a-z']+)";
 				execute(name_regex,html,output);
 				//I casi sono: Cognome Nome, COGNOME Nome,Cognome NOME, COGNOME NOME e cognome nome
-				//name_regex = "([A-Z]\\w+)*"+n+"|([A-Z]\\[A-Z]+)*"+n
-				//		   + "|([A-Z]\\w+)*"+n.toUpperCase()+"|([A-Z]\\[A-Z]+)*"+n.toUpperCase()+"|"
-				//		   + "([a-z]\\[a-z]+)*"+n;	
+				//name_regex =  nomi+"\\s([A-Z' ]+\\w+){1,2}|"+nomi.toUpperCase()+"\\s([A-Z' ]+\\w+){1,2}|"
+				//		  + nomi+"\\s([A-Z' ]+\\w+){1,2}|"+nomi.toUpperCase()+"\\s([A-Z' ]+\\w+){1,2}";
 				//execute(name_regex,html,output);
-		}	
+		
 		return output;		
 	}
 	
