@@ -63,6 +63,7 @@ public class App {
 	    	JSONArray locValueArray = new JSONArray();
 	    	JSONArray moneyValueArray = new JSONArray();
 	    	JSONArray dateValueArray = new JSONArray();
+	    	JSONArray timeValueArray = new JSONArray();
 	    	JSONArray miscValueArray = new JSONArray();
 	
 	        for(Object ent1 : entitiesObj){
@@ -118,6 +119,7 @@ public class App {
 	    	nerJson.put("LOC",locValueArray);
 	    	nerJson.put("DATE", dateValueArray);
 	    	nerJson.put("MONEY", moneyValueArray);
+	    	nerJson.put("TIME", timeValueArray);
 	    	nerJson.put("MISC", miscValueArray);
 	        
 	        personResultJson.put("NER", nerJson);
