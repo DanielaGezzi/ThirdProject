@@ -61,6 +61,8 @@ public class App {
 	        JSONArray perValueArray = new JSONArray();
 	    	JSONArray orgValueArray = new JSONArray();
 	    	JSONArray locValueArray = new JSONArray();
+	    	JSONArray moneyValueArray = new JSONArray();
+	    	JSONArray miscValueArray = new JSONArray();
 	
 	        for(Object ent1 : entitiesObj){
 	        	JSONObject entityObj1 = (JSONObject) ent1;
@@ -81,11 +83,30 @@ public class App {
 	        	
 	        	
 		             	if(entityObj1.get("type").equals("Person"))
+		             		
 		        			perValueArray.add(entityObj1.get("text"));
-		            	else if(entityObj1.get("type").equals("Organization"))
+		             	
+		            	else if(entityObj1.get("type").equals("Organization")
+		            			||entityObj1.get("type").equals("Company")
+		            			||entityObj1.get("type").equals("MusicGroup"))
+		            		
 		        			orgValueArray.add(entityObj1.get("text"));
-		            	else if(entityObj1.get("type").equals("City")||entityObj1.get("type").equals("Country"))
+		             	
+		            	else if(entityObj1.get("type").equals("City")
+		            			||entityObj1.get("type").equals("Country")
+		            			||entityObj1.get("type").equals("Continent")
+		            			||entityObj1.get("type").equals("Region")
+		            			||entityObj1.get("type").equals("StateOrCounty"))
+		            		
 		        			locValueArray.add(entityObj1.get("text"));
+		             	
+		            	else if(entityObj1.get("type").equals("Money"))
+		            		
+		        			moneyValueArray.add(entityObj1.get("text"));
+		             	
+		             	
+		            	else
+		            		miscValueArray.add(entityObj1.get("text"));
 	
 	    	}
 	        nerJson.put("PER",perValueArray);
