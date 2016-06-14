@@ -56,15 +56,15 @@ public class App {
 	        personResultJson.put("url", url);
 	        
 	        JSONObject nerJson = new JSONObject();
-	        List<String> type_visti = new ArrayList<String>();
+	        //List<String> type_visti = new ArrayList<String>();
 	        
-	      /*JSONArray perValueArray = new JSONArray();
+	        JSONArray perValueArray = new JSONArray();
 	    	JSONArray orgValueArray = new JSONArray();
-	    	JSONArray locValueArray = new JSONArray();*/
+	    	JSONArray locValueArray = new JSONArray();
 	
 	        for(Object ent1 : entitiesObj){
 	        	JSONObject entityObj1 = (JSONObject) ent1;
-    			JSONArray nerValueArray = new JSONArray();
+    			/*JSONArray nerValueArray = new JSONArray();
 	        	String type = (String) entityObj1.get("type");
 	        	
 	        	if(!type_visti.contains(type)){
@@ -77,20 +77,20 @@ public class App {
 		        	nerJson.put(type, nerValueArray);
 		        	type_visti.add(type);
 
-	        	}
+	        	}*/
 	        	
 	        	
-		              /*if(entityObj.get("type").equals("Person"))
-		        			perValueArray.add(entityObj.get("text"));
-		            	else if(entityObj.get("type").equals("Organization"))
-		        			orgValueArray.add(entityObj.get("text"));
-		            	else if(entityObj.get("type").equals("City")||entityObj.get("type").equals("Country"))
-		        			locValueArray.add(entityObj.get("text"));*/
+		             	if(entityObj1.get("type").equals("Person"))
+		        			perValueArray.add(entityObj1.get("text"));
+		            	else if(entityObj1.get("type").equals("Organization"))
+		        			orgValueArray.add(entityObj1.get("text"));
+		            	else if(entityObj1.get("type").equals("City")||entityObj1.get("type").equals("Country"))
+		        			locValueArray.add(entityObj1.get("text"));
 	
 	    	}
-	        /*nerJson.put("PER",perValueArray);
+	        nerJson.put("PER",perValueArray);
 	    	nerJson.put("ORG",orgValueArray);
-	    	nerJson.put("LOC",locValueArray);*/
+	    	nerJson.put("LOC",locValueArray);
 	        
 	        personResultJson.put("NER", nerJson);
 	        System.out.println(personResultJson);
