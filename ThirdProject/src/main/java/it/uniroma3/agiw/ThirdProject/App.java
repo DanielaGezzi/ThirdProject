@@ -62,6 +62,7 @@ public class App {
 	    	JSONArray orgValueArray = new JSONArray();
 	    	JSONArray locValueArray = new JSONArray();
 	    	JSONArray moneyValueArray = new JSONArray();
+	    	JSONArray dateValueArray = new JSONArray();
 	    	JSONArray miscValueArray = new JSONArray();
 	
 	        for(Object ent1 : entitiesObj){
@@ -100,10 +101,13 @@ public class App {
 		            		
 		        			locValueArray.add(entityObj1.get("text"));
 		             	
+		            	else if(entityObj1.get("type").equals("Anniversary"))
+		            		
+		        			dateValueArray.add(entityObj1.get("text"));
+		             	
 		            	else if(entityObj1.get("type").equals("Money"))
 		            		
 		        			moneyValueArray.add(entityObj1.get("text"));
-		             	
 		             	
 		            	else
 		            		miscValueArray.add(entityObj1.get("text"));
@@ -112,6 +116,9 @@ public class App {
 	        nerJson.put("PER",perValueArray);
 	    	nerJson.put("ORG",orgValueArray);
 	    	nerJson.put("LOC",locValueArray);
+	    	nerJson.put("DATE", dateValueArray);
+	    	nerJson.put("MONEY", moneyValueArray);
+	    	nerJson.put("MISC", miscValueArray);
 	        
 	        personResultJson.put("NER", nerJson);
 	        System.out.println(personResultJson);
