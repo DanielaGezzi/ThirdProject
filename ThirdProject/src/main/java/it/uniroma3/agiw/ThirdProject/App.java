@@ -37,8 +37,11 @@ public class App {
     		String[] name_surname = a[0].split(" ");
     		String directory_path = cartellaDestinazione_path + "\\" + name_surname[1] + "_" + name_surname[0];
     		String url = a[2];
+    	
     		
     		try{
+    		Document doc = Jsoup.connect(url).get();
+    		String html	= doc.html();
     	
     		File directory = new File(directory_path);
     		
@@ -97,9 +100,6 @@ public class App {
 
 			RegexExtraction re = new RegexExtraction();
 	        JSONObject regJson = new JSONObject();
-
-	        Document doc = Jsoup.connect(url).get();
-			String html	= doc.html();
 			
 			List<String> email_output = re.doEmailExtraction(html);
 			List<String> telephone_output = re.doTelephoneExtraction(html);
