@@ -39,7 +39,7 @@ public class RegexExtraction {
 		List<String> output = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader("../ThirdProject/src/main/resources/italian_prefix_regex.txt"));
     	String prefissi = br.readLine();
-		telephone_regex = "(?![^0-9])((\\+39)|" + prefissi + ")([0-9().\\- ]{5,10})|(\\+39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[{8,9}]))([\\d]{7})";
+		telephone_regex = "((\\+39)|" + prefissi + ")([0-9().\\- ]{5,10})|(\\+39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[{8,9}]))([\\d]{7})";
 		Pattern pattern = Pattern.compile(telephone_regex, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
 		Matcher m = pattern.matcher(html);
 		
