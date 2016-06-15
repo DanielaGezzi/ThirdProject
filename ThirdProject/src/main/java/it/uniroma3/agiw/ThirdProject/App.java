@@ -18,7 +18,7 @@ import org.jsoup.nodes.Document;
 
 public class App {
 	
-	private static String listaIngegneriUrl_path = "../ThirdProject/src/main/resources/listaQuery";
+	private static String listaIngegneriUrl_path = "../ThirdProject/src/main/resources/listaQueryU2.txt";
 	private static String cartellaDestinazione_path = "C:\\javacomelava3";
 	
     @SuppressWarnings("unchecked")
