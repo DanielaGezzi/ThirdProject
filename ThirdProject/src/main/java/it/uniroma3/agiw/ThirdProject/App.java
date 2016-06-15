@@ -25,6 +25,7 @@ public class App {
 	public static void main( String[] args ) throws IOException, ParserConfigurationException {
     	
 		BufferedWriter log_error; //log file degli errori
+		BufferedWriter resoconto;
 		
     	@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(new FileReader(listaIngegneriUrl_path));
@@ -169,6 +170,10 @@ public class App {
 	        file.flush();
 	        file.close();
 	        progressive_num++;
+	        resoconto = new BufferedWriter(new FileWriter(cartellaDestinazione_path + "\\resoconto.txt",true));
+			resoconto.newLine();
+			resoconto.append(current_line);
+			resoconto.close();
 	        
     		}catch(Exception e){
     			e.printStackTrace();
