@@ -12,7 +12,8 @@ public class RegexExtraction {
 	
 	private String email_regex = "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}";
 			//"[^\\s@<>]+@[^\\s<>]+\\.[^\\s@<>]+" vecchia regex
-	private String telephone_regex = "[^0-9]((\\+39)|(0[1-9]))([0-9().\\- ]{5,9})|(\\+39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[{8,9}]))([\\d]{7})";
+	private String telephone_regex = "";
+	//[^0-9]((\\+39)|(0[1-9]))([0-9().\\- ]{5,9})
 	private String name_regex = "";
 	
 	
@@ -34,9 +35,11 @@ public class RegexExtraction {
 		
 	}
 	
-	public List<String> doTelephoneExtraction(String html){
+	public List<String> doTelephoneExtraction(String html) throws IOException{
 		List<String> output = new ArrayList<String>();
-
+		BufferedReader br = new BufferedReader(new FileReader("../ThirdProject/src/main/resources/italian_prefix_regex.txt"));
+    	String prefissi = br.readLine();
+		telephone_regex = "(?![^0-9])((\\+39)|" + prefissi + ")([0-9().\\- ]{5,10})|(\\+39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[{8,9}]))([\\d]{7})";
 		Pattern pattern = Pattern.compile(telephone_regex, Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
 		Matcher m = pattern.matcher(html);
 		
