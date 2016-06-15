@@ -12,7 +12,7 @@ public static void main(String[] args) throws IOException{
     	String current_line;
     	String pre = "";
     	while((current_line = br.readLine()) != null){
-			pre = pre.concat(current_line+")|(");
+			pre = pre.concat(current_line+"|");
 			
 
 	}
